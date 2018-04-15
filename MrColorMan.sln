@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrColorMan", "MrColorMan\MrColorMan.csproj", "{766DC140-A807-4E48-B9FC-2EDCE53F0E05}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{766DC140-A807-4E48-B9FC-2EDCE53F0E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{766DC140-A807-4E48-B9FC-2EDCE53F0E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{766DC140-A807-4E48-B9FC-2EDCE53F0E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{766DC140-A807-4E48-B9FC-2EDCE53F0E05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5E8F3E7-2B80-4336-8835-2998211B31D6}
+	EndGlobalSection
+EndGlobal
