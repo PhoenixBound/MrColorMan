@@ -37,8 +37,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openROMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualPaletteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,7 +145,7 @@
             this.groupBoxPaletteLoadOpts.MinimumSize = new System.Drawing.Size(305, 92);
             this.groupBoxPaletteLoadOpts.Name = "groupBoxPaletteLoadOpts";
             this.groupBoxPaletteLoadOpts.Size = new System.Drawing.Size(315, 92);
-            this.groupBoxPaletteLoadOpts.TabIndex = 0;
+            this.groupBoxPaletteLoadOpts.TabIndex = 1;
             this.groupBoxPaletteLoadOpts.TabStop = false;
             this.groupBoxPaletteLoadOpts.Text = "Palette Loading Options";
             // 
@@ -173,6 +171,8 @@
             this.textBoxHexOffset.TabIndex = 3;
             this.textBoxHexOffset.Text = "08000000";
             this.textBoxHexOffset.TextChanged += new System.EventHandler(this.textBoxHexOffset_TextChanged);
+            this.textBoxHexOffset.Enter += new System.EventHandler(this.textBoxHexOffset_Enter);
+            this.textBoxHexOffset.Leave += new System.EventHandler(this.textBoxHexOffset_Leave);
             // 
             // checkBoxCompressedPalette
             // 
@@ -195,7 +195,7 @@
             this.radioButtonLoadFromOffset.Location = new System.Drawing.Point(6, 19);
             this.radioButtonLoadFromOffset.Name = "radioButtonLoadFromOffset";
             this.radioButtonLoadFromOffset.Size = new System.Drawing.Size(101, 17);
-            this.radioButtonLoadFromOffset.TabIndex = 1;
+            this.radioButtonLoadFromOffset.TabIndex = 0;
             this.radioButtonLoadFromOffset.TabStop = true;
             this.radioButtonLoadFromOffset.Text = "Load from offset";
             this.radioButtonLoadFromOffset.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@
             this.radioButtonLoadBySearching.Location = new System.Drawing.Point(6, 42);
             this.radioButtonLoadBySearching.Name = "radioButtonLoadBySearching";
             this.radioButtonLoadBySearching.Size = new System.Drawing.Size(112, 17);
-            this.radioButtonLoadBySearching.TabIndex = 0;
+            this.radioButtonLoadBySearching.TabIndex = 1;
             this.radioButtonLoadBySearching.Text = "Load by searching";
             this.radioButtonLoadBySearching.UseVisualStyleBackColor = true;
             // 
@@ -220,15 +220,13 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(506, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openROMToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
+            this.openROMToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -240,18 +238,6 @@
             this.openROMToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.openROMToolStripMenuItem.Text = "Open ROM...";
             this.openROMToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(182, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // editToolStripMenuItem
             // 
@@ -275,7 +261,7 @@
             this.addToBookmarksToolStripMenuItem});
             this.actualPaletteToolStripMenuItem.Enabled = false;
             this.actualPaletteToolStripMenuItem.Name = "actualPaletteToolStripMenuItem";
-            this.actualPaletteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.actualPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.actualPaletteToolStripMenuItem.Text = "Actual Palette";
             // 
             // copyToolStripMenuItem
@@ -333,7 +319,7 @@
             this.exportToolStripMenuItem1});
             this.changedPaletteToolStripMenuItem.Enabled = false;
             this.changedPaletteToolStripMenuItem.Name = "changedPaletteToolStripMenuItem";
-            this.changedPaletteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.changedPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.changedPaletteToolStripMenuItem.Text = "Changed Palette";
             // 
             // clearToolStripMenuItem1
@@ -466,136 +452,166 @@
             // 
             this.textBoxDisplayActual16.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual16.Location = new System.Drawing.Point(273, 98);
-            this.textBoxDisplayActual16.MaxLength = 0;
+            this.textBoxDisplayActual16.MaxLength = 1;
             this.textBoxDisplayActual16.Name = "textBoxDisplayActual16";
+            this.textBoxDisplayActual16.ReadOnly = true;
             this.textBoxDisplayActual16.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual16.TabIndex = 31;
+            this.textBoxDisplayActual16.TabStop = false;
             // 
             // textBoxDisplayActual15
             // 
             this.textBoxDisplayActual15.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual15.Location = new System.Drawing.Point(235, 98);
-            this.textBoxDisplayActual15.MaxLength = 0;
+            this.textBoxDisplayActual15.MaxLength = 1;
             this.textBoxDisplayActual15.Name = "textBoxDisplayActual15";
+            this.textBoxDisplayActual15.ReadOnly = true;
             this.textBoxDisplayActual15.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual15.TabIndex = 30;
+            this.textBoxDisplayActual15.TabStop = false;
             // 
             // textBoxDisplayActual14
             // 
             this.textBoxDisplayActual14.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual14.Location = new System.Drawing.Point(197, 98);
-            this.textBoxDisplayActual14.MaxLength = 0;
+            this.textBoxDisplayActual14.MaxLength = 1;
             this.textBoxDisplayActual14.Name = "textBoxDisplayActual14";
+            this.textBoxDisplayActual14.ReadOnly = true;
             this.textBoxDisplayActual14.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual14.TabIndex = 29;
+            this.textBoxDisplayActual14.TabStop = false;
             // 
             // textBoxDisplayActual13
             // 
             this.textBoxDisplayActual13.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual13.Location = new System.Drawing.Point(159, 98);
-            this.textBoxDisplayActual13.MaxLength = 0;
+            this.textBoxDisplayActual13.MaxLength = 1;
             this.textBoxDisplayActual13.Name = "textBoxDisplayActual13";
+            this.textBoxDisplayActual13.ReadOnly = true;
             this.textBoxDisplayActual13.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual13.TabIndex = 28;
+            this.textBoxDisplayActual13.TabStop = false;
             // 
             // textBoxDisplayActual12
             // 
             this.textBoxDisplayActual12.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual12.Location = new System.Drawing.Point(121, 98);
-            this.textBoxDisplayActual12.MaxLength = 0;
+            this.textBoxDisplayActual12.MaxLength = 1;
             this.textBoxDisplayActual12.Name = "textBoxDisplayActual12";
+            this.textBoxDisplayActual12.ReadOnly = true;
             this.textBoxDisplayActual12.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual12.TabIndex = 27;
+            this.textBoxDisplayActual12.TabStop = false;
             // 
             // textBoxDisplayActual11
             // 
             this.textBoxDisplayActual11.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual11.Location = new System.Drawing.Point(83, 98);
-            this.textBoxDisplayActual11.MaxLength = 0;
+            this.textBoxDisplayActual11.MaxLength = 1;
             this.textBoxDisplayActual11.Name = "textBoxDisplayActual11";
+            this.textBoxDisplayActual11.ReadOnly = true;
             this.textBoxDisplayActual11.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual11.TabIndex = 26;
+            this.textBoxDisplayActual11.TabStop = false;
             // 
             // textBoxDisplayActual10
             // 
             this.textBoxDisplayActual10.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual10.Location = new System.Drawing.Point(45, 98);
-            this.textBoxDisplayActual10.MaxLength = 0;
+            this.textBoxDisplayActual10.MaxLength = 1;
             this.textBoxDisplayActual10.Name = "textBoxDisplayActual10";
+            this.textBoxDisplayActual10.ReadOnly = true;
             this.textBoxDisplayActual10.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual10.TabIndex = 25;
+            this.textBoxDisplayActual10.TabStop = false;
             // 
             // textBoxDisplayActual9
             // 
             this.textBoxDisplayActual9.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual9.Location = new System.Drawing.Point(7, 98);
-            this.textBoxDisplayActual9.MaxLength = 0;
+            this.textBoxDisplayActual9.MaxLength = 1;
             this.textBoxDisplayActual9.Name = "textBoxDisplayActual9";
+            this.textBoxDisplayActual9.ReadOnly = true;
             this.textBoxDisplayActual9.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual9.TabIndex = 24;
+            this.textBoxDisplayActual9.TabStop = false;
             // 
             // textBoxDisplayActual8
             // 
             this.textBoxDisplayActual8.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual8.Location = new System.Drawing.Point(273, 46);
-            this.textBoxDisplayActual8.MaxLength = 0;
+            this.textBoxDisplayActual8.MaxLength = 1;
             this.textBoxDisplayActual8.Name = "textBoxDisplayActual8";
+            this.textBoxDisplayActual8.ReadOnly = true;
             this.textBoxDisplayActual8.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual8.TabIndex = 23;
+            this.textBoxDisplayActual8.TabStop = false;
             // 
             // textBoxDisplayActual7
             // 
             this.textBoxDisplayActual7.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual7.Location = new System.Drawing.Point(235, 46);
-            this.textBoxDisplayActual7.MaxLength = 0;
+            this.textBoxDisplayActual7.MaxLength = 1;
             this.textBoxDisplayActual7.Name = "textBoxDisplayActual7";
+            this.textBoxDisplayActual7.ReadOnly = true;
             this.textBoxDisplayActual7.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual7.TabIndex = 22;
+            this.textBoxDisplayActual7.TabStop = false;
             // 
             // textBoxDisplayActual6
             // 
             this.textBoxDisplayActual6.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual6.Location = new System.Drawing.Point(197, 46);
-            this.textBoxDisplayActual6.MaxLength = 0;
+            this.textBoxDisplayActual6.MaxLength = 1;
             this.textBoxDisplayActual6.Name = "textBoxDisplayActual6";
+            this.textBoxDisplayActual6.ReadOnly = true;
             this.textBoxDisplayActual6.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual6.TabIndex = 21;
+            this.textBoxDisplayActual6.TabStop = false;
             // 
             // textBoxDisplayActual5
             // 
             this.textBoxDisplayActual5.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual5.Location = new System.Drawing.Point(159, 46);
-            this.textBoxDisplayActual5.MaxLength = 0;
+            this.textBoxDisplayActual5.MaxLength = 1;
             this.textBoxDisplayActual5.Name = "textBoxDisplayActual5";
+            this.textBoxDisplayActual5.ReadOnly = true;
             this.textBoxDisplayActual5.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual5.TabIndex = 20;
+            this.textBoxDisplayActual5.TabStop = false;
             // 
             // textBoxDisplayActual4
             // 
             this.textBoxDisplayActual4.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual4.Location = new System.Drawing.Point(121, 46);
-            this.textBoxDisplayActual4.MaxLength = 0;
+            this.textBoxDisplayActual4.MaxLength = 1;
             this.textBoxDisplayActual4.Name = "textBoxDisplayActual4";
+            this.textBoxDisplayActual4.ReadOnly = true;
             this.textBoxDisplayActual4.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual4.TabIndex = 19;
+            this.textBoxDisplayActual4.TabStop = false;
             // 
             // textBoxDisplayActual3
             // 
             this.textBoxDisplayActual3.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual3.Location = new System.Drawing.Point(83, 46);
-            this.textBoxDisplayActual3.MaxLength = 0;
+            this.textBoxDisplayActual3.MaxLength = 1;
             this.textBoxDisplayActual3.Name = "textBoxDisplayActual3";
+            this.textBoxDisplayActual3.ReadOnly = true;
             this.textBoxDisplayActual3.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual3.TabIndex = 18;
+            this.textBoxDisplayActual3.TabStop = false;
             // 
             // textBoxDisplayActual2
             // 
             this.textBoxDisplayActual2.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual2.Location = new System.Drawing.Point(45, 46);
-            this.textBoxDisplayActual2.MaxLength = 0;
+            this.textBoxDisplayActual2.MaxLength = 1;
             this.textBoxDisplayActual2.Name = "textBoxDisplayActual2";
+            this.textBoxDisplayActual2.ReadOnly = true;
             this.textBoxDisplayActual2.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual2.TabIndex = 17;
+            this.textBoxDisplayActual2.TabStop = false;
             // 
             // textBoxColorActual16
             // 
@@ -605,7 +621,7 @@
             this.textBoxColorActual16.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual16.Name = "textBoxColorActual16";
             this.textBoxColorActual16.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual16.TabIndex = 16;
+            this.textBoxColorActual16.TabIndex = 15;
             this.textBoxColorActual16.Text = "0000";
             // 
             // textBoxColorActual15
@@ -616,7 +632,7 @@
             this.textBoxColorActual15.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual15.Name = "textBoxColorActual15";
             this.textBoxColorActual15.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual15.TabIndex = 15;
+            this.textBoxColorActual15.TabIndex = 14;
             this.textBoxColorActual15.Text = "0000";
             // 
             // textBoxColorActual14
@@ -627,7 +643,7 @@
             this.textBoxColorActual14.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual14.Name = "textBoxColorActual14";
             this.textBoxColorActual14.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual14.TabIndex = 14;
+            this.textBoxColorActual14.TabIndex = 13;
             this.textBoxColorActual14.Text = "0000";
             // 
             // textBoxColorActual13
@@ -638,7 +654,7 @@
             this.textBoxColorActual13.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual13.Name = "textBoxColorActual13";
             this.textBoxColorActual13.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual13.TabIndex = 13;
+            this.textBoxColorActual13.TabIndex = 12;
             this.textBoxColorActual13.Text = "0000";
             // 
             // textBoxColorActual12
@@ -649,7 +665,7 @@
             this.textBoxColorActual12.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual12.Name = "textBoxColorActual12";
             this.textBoxColorActual12.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual12.TabIndex = 12;
+            this.textBoxColorActual12.TabIndex = 11;
             this.textBoxColorActual12.Text = "0000";
             // 
             // textBoxColorActual11
@@ -660,7 +676,7 @@
             this.textBoxColorActual11.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual11.Name = "textBoxColorActual11";
             this.textBoxColorActual11.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual11.TabIndex = 11;
+            this.textBoxColorActual11.TabIndex = 10;
             this.textBoxColorActual11.Text = "0000";
             // 
             // textBoxColorActual10
@@ -671,7 +687,7 @@
             this.textBoxColorActual10.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual10.Name = "textBoxColorActual10";
             this.textBoxColorActual10.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual10.TabIndex = 10;
+            this.textBoxColorActual10.TabIndex = 9;
             this.textBoxColorActual10.Text = "0000";
             // 
             // textBoxColorActual9
@@ -682,7 +698,7 @@
             this.textBoxColorActual9.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual9.Name = "textBoxColorActual9";
             this.textBoxColorActual9.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual9.TabIndex = 9;
+            this.textBoxColorActual9.TabIndex = 8;
             this.textBoxColorActual9.Text = "0000";
             // 
             // textBoxColorActual8
@@ -693,7 +709,7 @@
             this.textBoxColorActual8.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual8.Name = "textBoxColorActual8";
             this.textBoxColorActual8.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual8.TabIndex = 8;
+            this.textBoxColorActual8.TabIndex = 7;
             this.textBoxColorActual8.Text = "0000";
             // 
             // textBoxColorActual7
@@ -704,7 +720,7 @@
             this.textBoxColorActual7.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual7.Name = "textBoxColorActual7";
             this.textBoxColorActual7.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual7.TabIndex = 7;
+            this.textBoxColorActual7.TabIndex = 6;
             this.textBoxColorActual7.Text = "0000";
             // 
             // textBoxColorActual6
@@ -715,7 +731,7 @@
             this.textBoxColorActual6.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual6.Name = "textBoxColorActual6";
             this.textBoxColorActual6.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual6.TabIndex = 6;
+            this.textBoxColorActual6.TabIndex = 5;
             this.textBoxColorActual6.Text = "0000";
             // 
             // textBoxColorActual5
@@ -726,7 +742,7 @@
             this.textBoxColorActual5.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual5.Name = "textBoxColorActual5";
             this.textBoxColorActual5.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual5.TabIndex = 5;
+            this.textBoxColorActual5.TabIndex = 4;
             this.textBoxColorActual5.Text = "0000";
             // 
             // textBoxColorActual4
@@ -737,7 +753,7 @@
             this.textBoxColorActual4.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual4.Name = "textBoxColorActual4";
             this.textBoxColorActual4.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual4.TabIndex = 4;
+            this.textBoxColorActual4.TabIndex = 3;
             this.textBoxColorActual4.Text = "0000";
             // 
             // textBoxColorActual3
@@ -748,7 +764,7 @@
             this.textBoxColorActual3.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual3.Name = "textBoxColorActual3";
             this.textBoxColorActual3.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual3.TabIndex = 3;
+            this.textBoxColorActual3.TabIndex = 2;
             this.textBoxColorActual3.Text = "0000";
             // 
             // textBoxColorActual2
@@ -759,17 +775,19 @@
             this.textBoxColorActual2.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual2.Name = "textBoxColorActual2";
             this.textBoxColorActual2.Size = new System.Drawing.Size(32, 20);
-            this.textBoxColorActual2.TabIndex = 2;
+            this.textBoxColorActual2.TabIndex = 1;
             this.textBoxColorActual2.Text = "0000";
             // 
             // textBoxDisplayActual1
             // 
             this.textBoxDisplayActual1.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayActual1.Location = new System.Drawing.Point(7, 46);
-            this.textBoxDisplayActual1.MaxLength = 0;
+            this.textBoxDisplayActual1.MaxLength = 1;
             this.textBoxDisplayActual1.Name = "textBoxDisplayActual1";
+            this.textBoxDisplayActual1.ReadOnly = true;
             this.textBoxDisplayActual1.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayActual1.TabIndex = 1;
+            this.textBoxDisplayActual1.TabStop = false;
             // 
             // textBoxColorActual1
             // 
@@ -830,136 +848,166 @@
             // 
             this.textBoxDisplayChanged16.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged16.Location = new System.Drawing.Point(273, 98);
-            this.textBoxDisplayChanged16.MaxLength = 0;
+            this.textBoxDisplayChanged16.MaxLength = 1;
             this.textBoxDisplayChanged16.Name = "textBoxDisplayChanged16";
+            this.textBoxDisplayChanged16.ReadOnly = true;
             this.textBoxDisplayChanged16.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged16.TabIndex = 31;
+            this.textBoxDisplayChanged16.TabStop = false;
             // 
             // textBoxDisplayChanged15
             // 
             this.textBoxDisplayChanged15.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged15.Location = new System.Drawing.Point(235, 98);
-            this.textBoxDisplayChanged15.MaxLength = 0;
+            this.textBoxDisplayChanged15.MaxLength = 1;
             this.textBoxDisplayChanged15.Name = "textBoxDisplayChanged15";
+            this.textBoxDisplayChanged15.ReadOnly = true;
             this.textBoxDisplayChanged15.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged15.TabIndex = 30;
+            this.textBoxDisplayChanged15.TabStop = false;
             // 
             // textBoxDisplayChanged14
             // 
             this.textBoxDisplayChanged14.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged14.Location = new System.Drawing.Point(197, 98);
-            this.textBoxDisplayChanged14.MaxLength = 0;
+            this.textBoxDisplayChanged14.MaxLength = 1;
             this.textBoxDisplayChanged14.Name = "textBoxDisplayChanged14";
+            this.textBoxDisplayChanged14.ReadOnly = true;
             this.textBoxDisplayChanged14.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged14.TabIndex = 29;
+            this.textBoxDisplayChanged14.TabStop = false;
             // 
             // textBoxDisplayChanged13
             // 
             this.textBoxDisplayChanged13.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged13.Location = new System.Drawing.Point(159, 98);
-            this.textBoxDisplayChanged13.MaxLength = 0;
+            this.textBoxDisplayChanged13.MaxLength = 1;
             this.textBoxDisplayChanged13.Name = "textBoxDisplayChanged13";
+            this.textBoxDisplayChanged13.ReadOnly = true;
             this.textBoxDisplayChanged13.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged13.TabIndex = 28;
+            this.textBoxDisplayChanged13.TabStop = false;
             // 
             // textBoxDisplayChanged12
             // 
             this.textBoxDisplayChanged12.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged12.Location = new System.Drawing.Point(121, 98);
-            this.textBoxDisplayChanged12.MaxLength = 0;
+            this.textBoxDisplayChanged12.MaxLength = 1;
             this.textBoxDisplayChanged12.Name = "textBoxDisplayChanged12";
+            this.textBoxDisplayChanged12.ReadOnly = true;
             this.textBoxDisplayChanged12.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged12.TabIndex = 27;
+            this.textBoxDisplayChanged12.TabStop = false;
             // 
             // textBoxDisplayChanged11
             // 
             this.textBoxDisplayChanged11.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged11.Location = new System.Drawing.Point(83, 98);
-            this.textBoxDisplayChanged11.MaxLength = 0;
+            this.textBoxDisplayChanged11.MaxLength = 1;
             this.textBoxDisplayChanged11.Name = "textBoxDisplayChanged11";
+            this.textBoxDisplayChanged11.ReadOnly = true;
             this.textBoxDisplayChanged11.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged11.TabIndex = 26;
+            this.textBoxDisplayChanged11.TabStop = false;
             // 
             // textBoxDisplayChanged10
             // 
             this.textBoxDisplayChanged10.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged10.Location = new System.Drawing.Point(45, 98);
-            this.textBoxDisplayChanged10.MaxLength = 0;
+            this.textBoxDisplayChanged10.MaxLength = 1;
             this.textBoxDisplayChanged10.Name = "textBoxDisplayChanged10";
+            this.textBoxDisplayChanged10.ReadOnly = true;
             this.textBoxDisplayChanged10.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged10.TabIndex = 25;
+            this.textBoxDisplayChanged10.TabStop = false;
             // 
             // textBoxDisplayChanged9
             // 
             this.textBoxDisplayChanged9.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged9.Location = new System.Drawing.Point(7, 98);
-            this.textBoxDisplayChanged9.MaxLength = 0;
+            this.textBoxDisplayChanged9.MaxLength = 1;
             this.textBoxDisplayChanged9.Name = "textBoxDisplayChanged9";
+            this.textBoxDisplayChanged9.ReadOnly = true;
             this.textBoxDisplayChanged9.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged9.TabIndex = 24;
+            this.textBoxDisplayChanged9.TabStop = false;
             // 
             // textBoxDisplayChanged8
             // 
             this.textBoxDisplayChanged8.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged8.Location = new System.Drawing.Point(273, 46);
-            this.textBoxDisplayChanged8.MaxLength = 0;
+            this.textBoxDisplayChanged8.MaxLength = 1;
             this.textBoxDisplayChanged8.Name = "textBoxDisplayChanged8";
+            this.textBoxDisplayChanged8.ReadOnly = true;
             this.textBoxDisplayChanged8.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged8.TabIndex = 23;
+            this.textBoxDisplayChanged8.TabStop = false;
             // 
             // textBoxDisplayChanged7
             // 
             this.textBoxDisplayChanged7.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged7.Location = new System.Drawing.Point(235, 46);
-            this.textBoxDisplayChanged7.MaxLength = 0;
+            this.textBoxDisplayChanged7.MaxLength = 1;
             this.textBoxDisplayChanged7.Name = "textBoxDisplayChanged7";
+            this.textBoxDisplayChanged7.ReadOnly = true;
             this.textBoxDisplayChanged7.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged7.TabIndex = 22;
+            this.textBoxDisplayChanged7.TabStop = false;
             // 
             // textBoxDisplayChanged6
             // 
             this.textBoxDisplayChanged6.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged6.Location = new System.Drawing.Point(197, 46);
-            this.textBoxDisplayChanged6.MaxLength = 0;
+            this.textBoxDisplayChanged6.MaxLength = 1;
             this.textBoxDisplayChanged6.Name = "textBoxDisplayChanged6";
+            this.textBoxDisplayChanged6.ReadOnly = true;
             this.textBoxDisplayChanged6.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged6.TabIndex = 21;
+            this.textBoxDisplayChanged6.TabStop = false;
             // 
             // textBoxDisplayChanged5
             // 
             this.textBoxDisplayChanged5.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged5.Location = new System.Drawing.Point(159, 46);
-            this.textBoxDisplayChanged5.MaxLength = 0;
+            this.textBoxDisplayChanged5.MaxLength = 1;
             this.textBoxDisplayChanged5.Name = "textBoxDisplayChanged5";
+            this.textBoxDisplayChanged5.ReadOnly = true;
             this.textBoxDisplayChanged5.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged5.TabIndex = 20;
+            this.textBoxDisplayChanged5.TabStop = false;
             // 
             // textBoxDisplayChanged4
             // 
             this.textBoxDisplayChanged4.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged4.Location = new System.Drawing.Point(121, 46);
-            this.textBoxDisplayChanged4.MaxLength = 0;
+            this.textBoxDisplayChanged4.MaxLength = 1;
             this.textBoxDisplayChanged4.Name = "textBoxDisplayChanged4";
+            this.textBoxDisplayChanged4.ReadOnly = true;
             this.textBoxDisplayChanged4.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged4.TabIndex = 19;
+            this.textBoxDisplayChanged4.TabStop = false;
             // 
             // textBoxDisplayChanged3
             // 
             this.textBoxDisplayChanged3.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged3.Location = new System.Drawing.Point(83, 46);
-            this.textBoxDisplayChanged3.MaxLength = 0;
+            this.textBoxDisplayChanged3.MaxLength = 1;
             this.textBoxDisplayChanged3.Name = "textBoxDisplayChanged3";
+            this.textBoxDisplayChanged3.ReadOnly = true;
             this.textBoxDisplayChanged3.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged3.TabIndex = 18;
+            this.textBoxDisplayChanged3.TabStop = false;
             // 
             // textBoxDisplayChanged2
             // 
             this.textBoxDisplayChanged2.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged2.Location = new System.Drawing.Point(45, 46);
-            this.textBoxDisplayChanged2.MaxLength = 0;
+            this.textBoxDisplayChanged2.MaxLength = 1;
             this.textBoxDisplayChanged2.Name = "textBoxDisplayChanged2";
+            this.textBoxDisplayChanged2.ReadOnly = true;
             this.textBoxDisplayChanged2.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged2.TabIndex = 17;
+            this.textBoxDisplayChanged2.TabStop = false;
             // 
             // textBoxColorChanged16
             // 
@@ -1130,10 +1178,12 @@
             // 
             this.textBoxDisplayChanged1.BackColor = System.Drawing.Color.Black;
             this.textBoxDisplayChanged1.Location = new System.Drawing.Point(7, 46);
-            this.textBoxDisplayChanged1.MaxLength = 0;
+            this.textBoxDisplayChanged1.MaxLength = 1;
             this.textBoxDisplayChanged1.Name = "textBoxDisplayChanged1";
+            this.textBoxDisplayChanged1.ReadOnly = true;
             this.textBoxDisplayChanged1.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged1.TabIndex = 1;
+            this.textBoxDisplayChanged1.TabStop = false;
             // 
             // textBoxColorChanged1
             // 
@@ -1148,7 +1198,6 @@
             // 
             // openRomDialog
             // 
-            this.openRomDialog.FileName = "openFileDialog1";
             this.openRomDialog.Filter = "GBA ROMs (*.gba)|*.gba|All files (*.*)|*.*";
             this.openRomDialog.ReadOnlyChecked = true;
             this.openRomDialog.ShowReadOnly = true;
@@ -1196,8 +1245,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openROMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actualPaletteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
