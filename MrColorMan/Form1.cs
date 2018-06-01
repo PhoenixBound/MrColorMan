@@ -16,6 +16,10 @@ namespace MrColorMan
 {
     public partial class FormMain : Form
     {
+        private const int PAL_LENGTH_BYTES_STANDARD = 32;
+        private const int PAL_LENGTH_BYTES_M12 = 0; // fixme
+        static bool m12 = false;
+
         TextBox[] colorActual;
         TextBox[] displayActual;
         TextBox[] colorChanged;
@@ -31,6 +35,7 @@ namespace MrColorMan
             set
             {
                 actualPalette = value;
+                DisplayActualPalette();
             }
         }
         public Palette ChangedPalette
@@ -39,7 +44,15 @@ namespace MrColorMan
             set
             {
                 changedPalette = value;
-                DisplayActualPalette();
+                DisplayChangedPalette();
+            }
+        }
+
+        public static int PAL_LENGTH_BYTES
+        {
+            get
+            {
+                return m12 ? PAL_LENGTH_BYTES_M12 : PAL_LENGTH_BYTES_STANDARD;
             }
         }
 
@@ -55,7 +68,13 @@ namespace MrColorMan
 
             if (result == DialogResult.OK)
             {
-                r = new GBAHL.IO.ROM_old(openRomDialog.FileName);
+                var f = FileAccess.Read;
+                if (!openRomDialog.ReadOnlyChecked)
+                {
+                    f = FileAccess.ReadWrite;
+                }
+                    
+                r = new GBAHL.IO.ROM_old(openRomDialog.FileName, f, FileShare.ReadWrite);
                 Text = $"Mr. Color Man - {r.Name} [{r.Code}{r.Maker}]";
                 EnableInitialControls();
             }
@@ -92,7 +111,15 @@ namespace MrColorMan
         {
             for (int i = 0; i < actualPalette.Length; i++)
             {
-                WarnInvalidColor(i);
+                WarnInvalidColor(actualIndex: i);
+            }
+        }
+
+        void WarnChangedInvalidColors()
+        {
+            for (int i = 0; i < changedPalette.Length; i++)
+            {
+                WarnInvalidColor(changedIndex: i);
             }
         }
 
@@ -115,13 +142,18 @@ namespace MrColorMan
             {
                 if ((changedPalette[changedIndex].Gba555Color & 0x8000) != 0)
                 {
-                    
+                    displayChanged[changedIndex].Text = "X";
+                    displayChanged[changedIndex].ForeColor = Color.FromArgb(changedPalette[changedIndex].RgbColor.ToArgb() ^ 0xFFFFFF);
+                }
+                else
+                {
+                    displayChanged[changedIndex].Text = "";
                 }
                 return;
             }
             else
             {
-                throw new ArgumentException("Choose an array to warn about, dang it.");
+                throw new ArgumentException("Choose an array to warn about, dang it. Bad dev.");
             }
         }
 
@@ -138,6 +170,8 @@ namespace MrColorMan
                 colorChanged[i].Text = changedPalette[i].Gba555Color.ToString("X4");
                 displayChanged[i].BackColor = changedPalette[i].RgbColor;
             }
+
+            WarnChangedInvalidColors();
         }
 
         /// <summary>
@@ -162,7 +196,7 @@ namespace MrColorMan
             {
                 // Make sure offset actually exists. (If GBA Video type carts used these palettes,
                 // they'd actually be supported.)
-                if (offset + 16 > r.Length || offset < 0)
+                if (offset + PAL_LENGTH_BYTES > r.Length || offset < 0)
                 {
                     MessageBox.Show("Invalid palette offset.", "Offset invalid", MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation);
@@ -170,7 +204,13 @@ namespace MrColorMan
                 }
                 r.Seek(offset);
                 ActualPalette = r.ReadPalette(16);
-                ChangedPalette = ActualPalette;
+                
+                if (!buttonCopyToChanged.Enabled)
+                {
+                    buttonCopyToChanged.Enabled = true;
+                    buttonReplacePalette.Enabled = true;
+                    ChangedPalette = ActualPalette;
+                }
             }
             else
             {
@@ -254,8 +294,130 @@ namespace MrColorMan
             displayChanged[15] = textBoxDisplayChanged16;
         }
 
-        private void textBoxHexOffset_Enter(object sender, EventArgs e) => ActiveForm.AcceptButton = buttonLoadPalette;
+        private void textBoxHexOffset_Enter(object sender, EventArgs e) 
+            => ActiveForm.AcceptButton = buttonLoadPalette;
 
-        private void textBoxHexOffset_Leave(object sender, EventArgs e) => ActiveForm.AcceptButton = null;
+        private void textBoxHexOffset_Leave(object sender, EventArgs e) 
+            => ActiveForm.AcceptButton = null;
+
+        private void buttonCopyToChanged_Click(object sender, EventArgs e)
+        {
+            ChangedPalette = ActualPalette;
+        }
+
+        private void LiveUpdateChangedPalette(int index)
+        {
+            if (colorChanged[index].TextLength == 4
+                && ushort.TryParse(colorChanged[index].Text, NumberStyles.HexNumber,
+                CultureInfo.InvariantCulture, out ushort c))
+            {
+                ChangedPalette[index] = new GbaColor(c);
+                // ...But the setter doesn't get called for accessing the array, so we need to do
+                // this manually anyway. *Joy.*
+                DisplayChangedPalette();
+            }
+        }
+
+        private void textBoxColorChanged1_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(0);
+        }
+
+        private void textBoxColorChanged2_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(1);
+        }
+
+        private void textBoxColorChanged3_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(2);
+        }
+
+        private void textBoxColorChanged4_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(3);
+        }
+
+        private void textBoxColorChanged5_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(4);
+        }
+
+        private void textBoxColorChanged6_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(5);
+        }
+
+        private void textBoxColorChanged7_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(6);
+        }
+
+        private void textBoxColorChanged8_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(7);
+        }
+
+        private void textBoxColorChanged9_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(8);
+        }
+
+        private void textBoxColorChanged10_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(9);
+        }
+
+        private void textBoxColorChanged11_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(10);
+        }
+
+        private void textBoxColorChanged12_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(11);
+        }
+
+        private void textBoxColorChanged13_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(12);
+        }
+
+        private void textBoxColorChanged14_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(13);
+        }
+
+        private void textBoxColorChanged15_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(14);
+        }
+
+        private void textBoxColorChanged16_TextChanged(object sender, EventArgs e)
+        {
+            LiveUpdateChangedPalette(15);
+        }
+
+        private void buttonReplacePalette_Click(object sender, EventArgs e)
+        {
+            r.Position -= PAL_LENGTH_BYTES;
+            r.WritePalette(ChangedPalette);
+            ActualPalette = ChangedPalette;
+        }
+
+        private void textBoxDisplayChanged1_Click(object sender, EventArgs e)
+        {
+            var result = colorDialog1.ShowDialog();
+            switch (result)
+            {
+                case DialogResult.OK:
+                    MessageBox.Show("The color is " + colorDialog1.Color);
+                    break;
+                case DialogResult.Cancel:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

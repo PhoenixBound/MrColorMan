@@ -54,8 +54,9 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxLoadActions = new System.Windows.Forms.GroupBox();
-            this.buttonReplacePalette = new System.Windows.Forms.Button();
+            this.buttonOpenRom = new System.Windows.Forms.Button();
             this.buttonLoadPalette = new System.Windows.Forms.Button();
+            this.buttonReplacePalette = new System.Windows.Forms.Button();
             this.groupBoxActualPalette = new System.Windows.Forms.GroupBox();
             this.textBoxDisplayActual16 = new System.Windows.Forms.TextBox();
             this.textBoxDisplayActual15 = new System.Windows.Forms.TextBox();
@@ -124,11 +125,14 @@
             this.textBoxColorChanged1 = new System.Windows.Forms.TextBox();
             this.openRomDialog = new System.Windows.Forms.OpenFileDialog();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.groupBoxCopyingControls = new System.Windows.Forms.GroupBox();
+            this.buttonCopyToChanged = new System.Windows.Forms.Button();
             this.groupBoxPaletteLoadOpts.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.groupBoxLoadActions.SuspendLayout();
             this.groupBoxActualPalette.SuspendLayout();
             this.groupBoxChangedPalette.SuspendLayout();
+            this.groupBoxCopyingControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxPaletteLoadOpts
@@ -261,7 +265,7 @@
             this.addToBookmarksToolStripMenuItem});
             this.actualPaletteToolStripMenuItem.Enabled = false;
             this.actualPaletteToolStripMenuItem.Name = "actualPaletteToolStripMenuItem";
-            this.actualPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.actualPaletteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.actualPaletteToolStripMenuItem.Text = "Actual Palette";
             // 
             // copyToolStripMenuItem
@@ -319,7 +323,7 @@
             this.exportToolStripMenuItem1});
             this.changedPaletteToolStripMenuItem.Enabled = false;
             this.changedPaletteToolStripMenuItem.Name = "changedPaletteToolStripMenuItem";
-            this.changedPaletteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.changedPaletteToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.changedPaletteToolStripMenuItem.Text = "Changed Palette";
             // 
             // clearToolStripMenuItem1
@@ -367,7 +371,7 @@
             this.groupBoxLoadActions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxLoadActions.Controls.Add(this.buttonReplacePalette);
+            this.groupBoxLoadActions.Controls.Add(this.buttonOpenRom);
             this.groupBoxLoadActions.Controls.Add(this.buttonLoadPalette);
             this.groupBoxLoadActions.Location = new System.Drawing.Point(333, 27);
             this.groupBoxLoadActions.Name = "groupBoxLoadActions";
@@ -375,19 +379,15 @@
             this.groupBoxLoadActions.TabIndex = 2;
             this.groupBoxLoadActions.TabStop = false;
             // 
-            // buttonReplacePalette
+            // buttonOpenRom
             // 
-            this.buttonReplacePalette.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonReplacePalette.Enabled = false;
-            this.buttonReplacePalette.Location = new System.Drawing.Point(7, 50);
-            this.buttonReplacePalette.MinimumSize = new System.Drawing.Size(92, 23);
-            this.buttonReplacePalette.Name = "buttonReplacePalette";
-            this.buttonReplacePalette.Size = new System.Drawing.Size(148, 23);
-            this.buttonReplacePalette.TabIndex = 1;
-            this.buttonReplacePalette.Text = "Replace Palette";
-            this.buttonReplacePalette.UseVisualStyleBackColor = true;
+            this.buttonOpenRom.Location = new System.Drawing.Point(6, 16);
+            this.buttonOpenRom.Name = "buttonOpenRom";
+            this.buttonOpenRom.Size = new System.Drawing.Size(148, 23);
+            this.buttonOpenRom.TabIndex = 0;
+            this.buttonOpenRom.Text = "Open ROM...";
+            this.buttonOpenRom.UseVisualStyleBackColor = true;
+            this.buttonOpenRom.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // buttonLoadPalette
             // 
@@ -395,14 +395,29 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadPalette.Enabled = false;
-            this.buttonLoadPalette.Location = new System.Drawing.Point(7, 20);
+            this.buttonLoadPalette.Location = new System.Drawing.Point(6, 45);
             this.buttonLoadPalette.MinimumSize = new System.Drawing.Size(77, 23);
             this.buttonLoadPalette.Name = "buttonLoadPalette";
             this.buttonLoadPalette.Size = new System.Drawing.Size(148, 23);
-            this.buttonLoadPalette.TabIndex = 0;
+            this.buttonLoadPalette.TabIndex = 1;
             this.buttonLoadPalette.Text = "Load Palette";
             this.buttonLoadPalette.UseVisualStyleBackColor = true;
             this.buttonLoadPalette.Click += new System.EventHandler(this.buttonLoadPalette_Click);
+            // 
+            // buttonReplacePalette
+            // 
+            this.buttonReplacePalette.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonReplacePalette.Enabled = false;
+            this.buttonReplacePalette.Location = new System.Drawing.Point(7, 130);
+            this.buttonReplacePalette.MinimumSize = new System.Drawing.Size(92, 23);
+            this.buttonReplacePalette.Name = "buttonReplacePalette";
+            this.buttonReplacePalette.Size = new System.Drawing.Size(148, 118);
+            this.buttonReplacePalette.TabIndex = 1;
+            this.buttonReplacePalette.Text = "Replace Actual Palette";
+            this.buttonReplacePalette.UseVisualStyleBackColor = true;
+            this.buttonReplacePalette.Click += new System.EventHandler(this.buttonReplacePalette_Click);
             // 
             // groupBoxActualPalette
             // 
@@ -444,7 +459,7 @@
             this.groupBoxActualPalette.Location = new System.Drawing.Point(12, 126);
             this.groupBoxActualPalette.Name = "groupBoxActualPalette";
             this.groupBoxActualPalette.Size = new System.Drawing.Size(315, 124);
-            this.groupBoxActualPalette.TabIndex = 3;
+            this.groupBoxActualPalette.TabIndex = 5;
             this.groupBoxActualPalette.TabStop = false;
             this.groupBoxActualPalette.Text = "Actual Palette";
             // 
@@ -620,6 +635,7 @@
             this.textBoxColorActual16.MaxLength = 4;
             this.textBoxColorActual16.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual16.Name = "textBoxColorActual16";
+            this.textBoxColorActual16.ReadOnly = true;
             this.textBoxColorActual16.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual16.TabIndex = 15;
             this.textBoxColorActual16.Text = "0000";
@@ -631,6 +647,7 @@
             this.textBoxColorActual15.MaxLength = 4;
             this.textBoxColorActual15.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual15.Name = "textBoxColorActual15";
+            this.textBoxColorActual15.ReadOnly = true;
             this.textBoxColorActual15.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual15.TabIndex = 14;
             this.textBoxColorActual15.Text = "0000";
@@ -642,6 +659,7 @@
             this.textBoxColorActual14.MaxLength = 4;
             this.textBoxColorActual14.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual14.Name = "textBoxColorActual14";
+            this.textBoxColorActual14.ReadOnly = true;
             this.textBoxColorActual14.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual14.TabIndex = 13;
             this.textBoxColorActual14.Text = "0000";
@@ -653,6 +671,7 @@
             this.textBoxColorActual13.MaxLength = 4;
             this.textBoxColorActual13.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual13.Name = "textBoxColorActual13";
+            this.textBoxColorActual13.ReadOnly = true;
             this.textBoxColorActual13.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual13.TabIndex = 12;
             this.textBoxColorActual13.Text = "0000";
@@ -664,6 +683,7 @@
             this.textBoxColorActual12.MaxLength = 4;
             this.textBoxColorActual12.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual12.Name = "textBoxColorActual12";
+            this.textBoxColorActual12.ReadOnly = true;
             this.textBoxColorActual12.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual12.TabIndex = 11;
             this.textBoxColorActual12.Text = "0000";
@@ -675,6 +695,7 @@
             this.textBoxColorActual11.MaxLength = 4;
             this.textBoxColorActual11.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual11.Name = "textBoxColorActual11";
+            this.textBoxColorActual11.ReadOnly = true;
             this.textBoxColorActual11.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual11.TabIndex = 10;
             this.textBoxColorActual11.Text = "0000";
@@ -686,6 +707,7 @@
             this.textBoxColorActual10.MaxLength = 4;
             this.textBoxColorActual10.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual10.Name = "textBoxColorActual10";
+            this.textBoxColorActual10.ReadOnly = true;
             this.textBoxColorActual10.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual10.TabIndex = 9;
             this.textBoxColorActual10.Text = "0000";
@@ -697,6 +719,7 @@
             this.textBoxColorActual9.MaxLength = 4;
             this.textBoxColorActual9.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual9.Name = "textBoxColorActual9";
+            this.textBoxColorActual9.ReadOnly = true;
             this.textBoxColorActual9.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual9.TabIndex = 8;
             this.textBoxColorActual9.Text = "0000";
@@ -708,6 +731,7 @@
             this.textBoxColorActual8.MaxLength = 4;
             this.textBoxColorActual8.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual8.Name = "textBoxColorActual8";
+            this.textBoxColorActual8.ReadOnly = true;
             this.textBoxColorActual8.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual8.TabIndex = 7;
             this.textBoxColorActual8.Text = "0000";
@@ -719,6 +743,7 @@
             this.textBoxColorActual7.MaxLength = 4;
             this.textBoxColorActual7.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual7.Name = "textBoxColorActual7";
+            this.textBoxColorActual7.ReadOnly = true;
             this.textBoxColorActual7.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual7.TabIndex = 6;
             this.textBoxColorActual7.Text = "0000";
@@ -730,6 +755,7 @@
             this.textBoxColorActual6.MaxLength = 4;
             this.textBoxColorActual6.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual6.Name = "textBoxColorActual6";
+            this.textBoxColorActual6.ReadOnly = true;
             this.textBoxColorActual6.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual6.TabIndex = 5;
             this.textBoxColorActual6.Text = "0000";
@@ -741,6 +767,7 @@
             this.textBoxColorActual5.MaxLength = 4;
             this.textBoxColorActual5.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual5.Name = "textBoxColorActual5";
+            this.textBoxColorActual5.ReadOnly = true;
             this.textBoxColorActual5.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual5.TabIndex = 4;
             this.textBoxColorActual5.Text = "0000";
@@ -752,6 +779,7 @@
             this.textBoxColorActual4.MaxLength = 4;
             this.textBoxColorActual4.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual4.Name = "textBoxColorActual4";
+            this.textBoxColorActual4.ReadOnly = true;
             this.textBoxColorActual4.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual4.TabIndex = 3;
             this.textBoxColorActual4.Text = "0000";
@@ -763,6 +791,7 @@
             this.textBoxColorActual3.MaxLength = 4;
             this.textBoxColorActual3.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual3.Name = "textBoxColorActual3";
+            this.textBoxColorActual3.ReadOnly = true;
             this.textBoxColorActual3.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual3.TabIndex = 2;
             this.textBoxColorActual3.Text = "0000";
@@ -774,6 +803,7 @@
             this.textBoxColorActual2.MaxLength = 4;
             this.textBoxColorActual2.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual2.Name = "textBoxColorActual2";
+            this.textBoxColorActual2.ReadOnly = true;
             this.textBoxColorActual2.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual2.TabIndex = 1;
             this.textBoxColorActual2.Text = "0000";
@@ -796,6 +826,7 @@
             this.textBoxColorActual1.MaxLength = 4;
             this.textBoxColorActual1.MinimumSize = new System.Drawing.Size(32, 20);
             this.textBoxColorActual1.Name = "textBoxColorActual1";
+            this.textBoxColorActual1.ReadOnly = true;
             this.textBoxColorActual1.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorActual1.TabIndex = 0;
             this.textBoxColorActual1.Text = "0000";
@@ -840,9 +871,9 @@
             this.groupBoxChangedPalette.Location = new System.Drawing.Point(12, 256);
             this.groupBoxChangedPalette.Name = "groupBoxChangedPalette";
             this.groupBoxChangedPalette.Size = new System.Drawing.Size(315, 124);
-            this.groupBoxChangedPalette.TabIndex = 4;
+            this.groupBoxChangedPalette.TabIndex = 3;
             this.groupBoxChangedPalette.TabStop = false;
-            this.groupBoxChangedPalette.Text = "Changed Palette";
+            this.groupBoxChangedPalette.Text = "Working Area";
             // 
             // textBoxDisplayChanged16
             // 
@@ -1019,6 +1050,7 @@
             this.textBoxColorChanged16.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged16.TabIndex = 16;
             this.textBoxColorChanged16.Text = "0000";
+            this.textBoxColorChanged16.TextChanged += new System.EventHandler(this.textBoxColorChanged16_TextChanged);
             // 
             // textBoxColorChanged15
             // 
@@ -1030,6 +1062,7 @@
             this.textBoxColorChanged15.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged15.TabIndex = 15;
             this.textBoxColorChanged15.Text = "0000";
+            this.textBoxColorChanged15.TextChanged += new System.EventHandler(this.textBoxColorChanged15_TextChanged);
             // 
             // textBoxColorChanged14
             // 
@@ -1041,6 +1074,7 @@
             this.textBoxColorChanged14.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged14.TabIndex = 14;
             this.textBoxColorChanged14.Text = "0000";
+            this.textBoxColorChanged14.TextChanged += new System.EventHandler(this.textBoxColorChanged14_TextChanged);
             // 
             // textBoxColorChanged13
             // 
@@ -1052,6 +1086,7 @@
             this.textBoxColorChanged13.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged13.TabIndex = 13;
             this.textBoxColorChanged13.Text = "0000";
+            this.textBoxColorChanged13.TextChanged += new System.EventHandler(this.textBoxColorChanged13_TextChanged);
             // 
             // textBoxColorChanged12
             // 
@@ -1063,6 +1098,7 @@
             this.textBoxColorChanged12.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged12.TabIndex = 12;
             this.textBoxColorChanged12.Text = "0000";
+            this.textBoxColorChanged12.TextChanged += new System.EventHandler(this.textBoxColorChanged12_TextChanged);
             // 
             // textBoxColorChanged11
             // 
@@ -1074,6 +1110,7 @@
             this.textBoxColorChanged11.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged11.TabIndex = 11;
             this.textBoxColorChanged11.Text = "0000";
+            this.textBoxColorChanged11.TextChanged += new System.EventHandler(this.textBoxColorChanged11_TextChanged);
             // 
             // textBoxColorChanged10
             // 
@@ -1085,6 +1122,7 @@
             this.textBoxColorChanged10.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged10.TabIndex = 10;
             this.textBoxColorChanged10.Text = "0000";
+            this.textBoxColorChanged10.TextChanged += new System.EventHandler(this.textBoxColorChanged10_TextChanged);
             // 
             // textBoxColorChanged9
             // 
@@ -1096,6 +1134,7 @@
             this.textBoxColorChanged9.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged9.TabIndex = 9;
             this.textBoxColorChanged9.Text = "0000";
+            this.textBoxColorChanged9.TextChanged += new System.EventHandler(this.textBoxColorChanged9_TextChanged);
             // 
             // textBoxColorChanged8
             // 
@@ -1107,6 +1146,7 @@
             this.textBoxColorChanged8.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged8.TabIndex = 8;
             this.textBoxColorChanged8.Text = "0000";
+            this.textBoxColorChanged8.TextChanged += new System.EventHandler(this.textBoxColorChanged8_TextChanged);
             // 
             // textBoxColorChanged7
             // 
@@ -1118,6 +1158,7 @@
             this.textBoxColorChanged7.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged7.TabIndex = 7;
             this.textBoxColorChanged7.Text = "0000";
+            this.textBoxColorChanged7.TextChanged += new System.EventHandler(this.textBoxColorChanged7_TextChanged);
             // 
             // textBoxColorChanged6
             // 
@@ -1129,6 +1170,7 @@
             this.textBoxColorChanged6.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged6.TabIndex = 6;
             this.textBoxColorChanged6.Text = "0000";
+            this.textBoxColorChanged6.TextChanged += new System.EventHandler(this.textBoxColorChanged6_TextChanged);
             // 
             // textBoxColorChanged5
             // 
@@ -1140,6 +1182,7 @@
             this.textBoxColorChanged5.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged5.TabIndex = 5;
             this.textBoxColorChanged5.Text = "0000";
+            this.textBoxColorChanged5.TextChanged += new System.EventHandler(this.textBoxColorChanged5_TextChanged);
             // 
             // textBoxColorChanged4
             // 
@@ -1151,6 +1194,7 @@
             this.textBoxColorChanged4.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged4.TabIndex = 4;
             this.textBoxColorChanged4.Text = "0000";
+            this.textBoxColorChanged4.TextChanged += new System.EventHandler(this.textBoxColorChanged4_TextChanged);
             // 
             // textBoxColorChanged3
             // 
@@ -1162,6 +1206,7 @@
             this.textBoxColorChanged3.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged3.TabIndex = 3;
             this.textBoxColorChanged3.Text = "0000";
+            this.textBoxColorChanged3.TextChanged += new System.EventHandler(this.textBoxColorChanged3_TextChanged);
             // 
             // textBoxColorChanged2
             // 
@@ -1173,6 +1218,7 @@
             this.textBoxColorChanged2.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged2.TabIndex = 2;
             this.textBoxColorChanged2.Text = "0000";
+            this.textBoxColorChanged2.TextChanged += new System.EventHandler(this.textBoxColorChanged2_TextChanged);
             // 
             // textBoxDisplayChanged1
             // 
@@ -1184,6 +1230,7 @@
             this.textBoxDisplayChanged1.Size = new System.Drawing.Size(32, 20);
             this.textBoxDisplayChanged1.TabIndex = 1;
             this.textBoxDisplayChanged1.TabStop = false;
+            this.textBoxDisplayChanged1.Click += new System.EventHandler(this.textBoxDisplayChanged1_Click);
             // 
             // textBoxColorChanged1
             // 
@@ -1195,6 +1242,7 @@
             this.textBoxColorChanged1.Size = new System.Drawing.Size(32, 20);
             this.textBoxColorChanged1.TabIndex = 0;
             this.textBoxColorChanged1.Text = "0000";
+            this.textBoxColorChanged1.TextChanged += new System.EventHandler(this.textBoxColorChanged1_TextChanged);
             // 
             // openRomDialog
             // 
@@ -1204,13 +1252,37 @@
             // 
             // colorDialog1
             // 
+            this.colorDialog1.AnyColor = true;
+            this.colorDialog1.FullOpen = true;
             this.colorDialog1.SolidColorOnly = true;
+            // 
+            // groupBoxCopyingControls
+            // 
+            this.groupBoxCopyingControls.Controls.Add(this.buttonReplacePalette);
+            this.groupBoxCopyingControls.Controls.Add(this.buttonCopyToChanged);
+            this.groupBoxCopyingControls.Location = new System.Drawing.Point(333, 126);
+            this.groupBoxCopyingControls.Name = "groupBoxCopyingControls";
+            this.groupBoxCopyingControls.Size = new System.Drawing.Size(161, 254);
+            this.groupBoxCopyingControls.TabIndex = 4;
+            this.groupBoxCopyingControls.TabStop = false;
+            // 
+            // buttonCopyToChanged
+            // 
+            this.buttonCopyToChanged.Enabled = false;
+            this.buttonCopyToChanged.Location = new System.Drawing.Point(7, 20);
+            this.buttonCopyToChanged.Name = "buttonCopyToChanged";
+            this.buttonCopyToChanged.Size = new System.Drawing.Size(148, 104);
+            this.buttonCopyToChanged.TabIndex = 0;
+            this.buttonCopyToChanged.Text = "Copy to Working Area";
+            this.buttonCopyToChanged.UseVisualStyleBackColor = true;
+            this.buttonCopyToChanged.Click += new System.EventHandler(this.buttonCopyToChanged_Click);
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(506, 450);
+            this.Controls.Add(this.groupBoxCopyingControls);
             this.Controls.Add(this.groupBoxChangedPalette);
             this.Controls.Add(this.groupBoxActualPalette);
             this.Controls.Add(this.groupBoxLoadActions);
@@ -1229,6 +1301,7 @@
             this.groupBoxActualPalette.PerformLayout();
             this.groupBoxChangedPalette.ResumeLayout(false);
             this.groupBoxChangedPalette.PerformLayout();
+            this.groupBoxCopyingControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1332,6 +1405,9 @@
         private System.Windows.Forms.TextBox textBoxColorChanged1;
         private System.Windows.Forms.OpenFileDialog openRomDialog;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.GroupBox groupBoxCopyingControls;
+        private System.Windows.Forms.Button buttonCopyToChanged;
+        private System.Windows.Forms.Button buttonOpenRom;
     }
 }
 
